@@ -1,0 +1,1 @@
+You will be given a question at the end, for which you are to select the most appropriate answer by indicating the associated letter. Please first output step-by-step reasoning about how to solve the question. Then, in the last sentence, output which answer is correct in the format of "Therefore, the answer is ...".
