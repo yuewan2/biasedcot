@@ -19,7 +19,8 @@ python cot.py \
   --n_output 1
 ```
 
-If `--n_output` is set to 1, greedy decoding is used. Otherwise, sampling is used with `temperature=0.7` and `top_p=0.9`.
+If `--n_output` is set to 1, greedy decoding is used. Otherwise, sampling is used with `temperature=0.3` and `top_p=0.7` for llama3-8B, and `temperature=0.9` and `top_p=0.9` for mistral-7B and olmo2-7B.
+
 
 ## Extract \$A_{Inter}$ from CoT
 
