@@ -44,4 +44,4 @@ The script will search for the generated output files from the previous step bas
 
 
 ## Analysis of Confirmation Bias
-Follow `./notebooks/analysis.ipynb` for the main analysis of confirmation bias. 
+Follow `./notebooks/analysis.ipynb` for the main analysis of confirmation bias. (coming soon)
