@@ -22,7 +22,7 @@ python cot.py \
 If `--n_output` is set to 1, greedy decoding is used. Otherwise, sampling is used with `temperature=0.3` and `top_p=0.7` for llama3-8B, and `temperature=0.9` and `top_p=0.9` for mistral-7B and olmo2-7B.
 
 
-## Extract \$A_{Inter}$ from CoT
+## Extract $A_{Inter}$ from CoT
 
 To extract the intermediate answer from the generated CoT from the previous step, run the following command from the `./scripts` directory. 
 
@@ -44,4 +44,29 @@ The script will search for the generated output files from the previous step bas
 
 
 ## Analysis of Confirmation Bias
-Follow `./notebooks/analysis.ipynb` for the main analysis of confirmation bias. (coming soon)
+Follow `./notebooks/analysis.ipynb` for the main analysis of confirmation bias. 
+
+
+## Other observations and thoughts not included in paper...
+We tried a bunch of prompt-based debiasing methods in this work, especially on the CommonsenseQA and SocialIQA datasets:
+1. Prompt the model to generate rationale for each answer, and concat all of them as additional context inputs.
+2. Prompt the model to generate one piece of supportive factual knowledge for each answer, and concat as additional context.
+3. Prompt the model to generate a non-supportive rationale/counterfactual knowledge for each answer, and concat as additional context.
+4. Only prompt the model to generate one of the above for questions with low base confidence.
+5. Prompt the model to generate one counterfactual knowledge for the believed answer choice with high base confidence, ...
+6. After QA, prompt the model to re-evaluate about its CoT or/and answer prediction as if it is a critical thinker, and QA again.
+
+Unfortunately, all attempts have failed to improve the overall CoT performance, meaning that it can "debias" some 
+questions at the cost of correctness of other questions that were initially correct. An important issue we discovered 
+from the above attempts is that LLMs (at least the 7B models) are extremely sensitive to the rationale ordering.
+The reasoning behavior changes significantly when the ordering of the concatenation changes. What's worse, we didn't to
+find a clear pattern of how ordering relates to model's CoT preference towards an answer. This further indicates that 
+using the original model to debias itself is more challenging than expected, as the sequential debiasing process,
+where ordering plays a crucial role, needs to be carefully designed to be generalized across questions. 
+
+However, these attempts are only conducted using 7B models due to the computational resources. Hopefully larger 
+models (e.g., 70B) can be more robust to both confirmation bias, rationale ordering, and potentially prompt-based
+debiasing! 
+
+
+
